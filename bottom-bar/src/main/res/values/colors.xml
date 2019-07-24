@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="bb_inActiveBottomBarItemColor">#747474</color>
+    <color name="bb_darkBackgroundColor">#212121</color>
+    <color name="bb_tabletRightBorderDark">#505050</color>
+    <color name="bb_badgeBackgroundColor">#FF0000</color>
+</resources>
