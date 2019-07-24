@@ -1,31 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.kt3k.coveralls'
-apply plugin: 'com.github.dcendents.android-maven'
-group='cyrus-github'
 
-ext {
-    bintrayRepo = 'maven'
-    bintrayName = 'bottom-bar'
 
-    publishedGroupId = 'com.roughike'
-    libraryName = 'bottom-bar'
-    artifact = 'bottom-bar'
 
-    libraryDescription = 'A custom view component that mimics the Material Design "Bottom navigation" pattern.'
-
-    siteUrl = 'https://github.com/roughike/BottomBar'
-    gitUrl = 'https://github.com/roughike/BottomBar.git'
-
-    libraryVersion = '2.3.1'
-
-    developerId = 'roughike'
-    developerName = 'Iiro Krankka'
-    developerEmail = 'iiro.krankka@gmail.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
-}
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -74,50 +51,8 @@ dependencies {
 
 apply plugin: 'com.github.dcendents.android-maven'
 
-group = publishedGroupId                               // Maven Group ID for the artifact
+group='cyrus-github'                             // Maven Group ID for the artifact
 
-install {
-    repositories.mavenInstaller {
-        // This generates POM.xml with proper parameters
-        pom {
-            project {
-                packaging 'aar'
-                groupId publishedGroupId
-                artifactId artifact
-
-                // Add your description here
-                name libraryName
-                description libraryDescription
-                url siteUrl
-
-                // Set your license
-                licenses {
-                    license {
-                        name licenseName
-                        url licenseUrl
-                    }
-                }
-                developers {
-                    developer {
-                        id developerId
-                        name developerName
-                        email developerEmail
-                    }
-                }
-                scm {
-                    connection gitUrl
-                    developerConnection gitUrl
-                    url siteUrl
-
-                }
-            }
-        }
-    }
-}
-
-apply plugin: 'com.jfrog.bintray'
-
-version = libraryVersion
 
 if (project.hasProperty("android")) { // Android libraries
     task sourcesJar(type: Jar) {
@@ -141,40 +76,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives javadocJar
-    archives sourcesJar
-}
 
-// Bintray
-File localProps = project.rootProject.file('local.properties')
 
-if (localProps.exists()) {
-    Properties properties = new Properties()
-    properties.load(localProps.newDataInputStream())
 
-    bintray {
-        user = properties.getProperty("bintray.user")
-        key = properties.getProperty("bintray.apikey")
-
-        configurations = ['archives']
-        pkg {
-            repo = bintrayRepo
-            name = bintrayName
-            desc = libraryDescription
-            websiteUrl = siteUrl
-            vcsUrl = gitUrl
-            licenses = allLicenses
-            publish = true
-            publicDownloadNumbers = true
-            version {
-                desc = libraryDescription
-                gpg {
-                    sign = true //Determines whether to GPG sign the files. The default is false
-                    passphrase = properties.getProperty("bintray.gpg.password")
-                    //Optional. The passphrase for GPG signing'
-                }
-            }
-        }
-    }
 }
